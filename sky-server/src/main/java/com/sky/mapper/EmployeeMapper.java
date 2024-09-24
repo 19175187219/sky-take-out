@@ -23,4 +23,6 @@ public interface EmployeeMapper {
     void inster(Employee employee);
 
     Page<Employee> pageSelect(EmployeePageQueryDTO employeePageQueryDTO);
+
+    void updatestart(Employee employee);
 }

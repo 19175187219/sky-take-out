@@ -88,4 +88,17 @@ Employee employee=new Employee();
         return new PageResult(total,result);
     }
 
+    /**
+     * 启用禁用员工
+     * @param status
+     * @param id
+     */
+    @Override
+    public void startorstop(Integer status, long id) {
+        Employee employee = new Employee();
+        employee.setId(id);
+        employee.setStatus(status);
+        employeeMapper.updatestart(employee);
+    }
+
 }
