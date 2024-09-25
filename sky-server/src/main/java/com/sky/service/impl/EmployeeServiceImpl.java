@@ -101,4 +101,20 @@ Employee employee=new Employee();
         employeeMapper.updatestart(employee);
     }
 
+    @Override
+    public Employee getbyId(long id) {
+      Employee employee= employeeMapper.getbyId(id);
+        employee.setPassword("*****");
+        return employee;
+    }
+
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee=new Employee();
+        BeanUtils.copyProperties(employeeDTO,employee);
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        employeeMapper.updatestart(employee);
+    }
+
 }
