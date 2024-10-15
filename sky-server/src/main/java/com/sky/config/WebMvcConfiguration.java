@@ -25,11 +25,11 @@ import java.util.List;
  */
 @Configuration
 @Slf4j
+
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     @Autowired
     private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
-
     /**
      * 注册自定义拦截器
      *
@@ -69,6 +69,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        super.addResourceHandlers(registry);
     }
 
     /**
