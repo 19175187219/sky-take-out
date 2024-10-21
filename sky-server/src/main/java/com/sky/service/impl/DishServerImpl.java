@@ -35,6 +35,14 @@ private DishFlavorsMapper dishFlavorsMapper;
     private SetmealDishMapper setmealDishMapper;
 
     @Transactional//事务注解
+   /**
+    * 新增菜品
+    *
+ * @param dishDTO
+    * @return void
+    * @author zhuwanyi
+    * @create 2024/10/15
+    **/
     public void saveFlavorsAndDishes(DishDTO dishDTO) {
         Dish dish=new Dish();
         BeanUtils.copyProperties(dishDTO, dish);
@@ -64,12 +72,17 @@ private DishFlavorsMapper dishFlavorsMapper;
         return new PageResult(page.getTotal(),page.getResult());
     }
 
-    /**
-     * 删除
-     * @param ids
-     * @return
-     */
-    @Transactional//事务注解
+
+/**
+ *
+ *删除菜品
+ * @param ids
+ * @return void
+ * @author zhuwanyi
+ * @create 2024/10/15
+ **/
+
+@Transactional//事务注解
     public void delete(List<Long> ids) {
         //是否启售
         for (Long id : ids) {
@@ -91,4 +104,32 @@ private DishFlavorsMapper dishFlavorsMapper;
         }
 
     }
+
+    @Transactional
+    public DishVO updateById(Long id) {
+    Dish dish=dishMapper.getbyID(id);
+   List<DishFlavor> dishFlavors=dishFlavorsMapper.updateById(id);
+   DishVO dishVO=new DishVO();
+  BeanUtils.copyProperties(dish,dishVO);
+  dishVO.setFlavors(dishFlavors);
+        return dishVO;
+    }
+@Transactional
+    public void updateFlavorsAndDishes(DishDTO dishDTO) {
+        //修改菜品基本信息
+    Dish dish = new Dish();
+    BeanUtils.copyProperties(dishDTO,dish);
+    dishMapper.update(dish);
+//删除原有口味
+dishFlavorsMapper.delete(dishDTO.getId());
+    //重新插入口味
+    List<DishFlavor> flavors = dishDTO.getFlavors();
+    if(flavors!=null && flavors.size()>0){
+        flavors.forEach(dishFlavor -> {
+            dishFlavor.setDishId(dish.getId());
+        });
+        dishFlavorsMapper.inserrtBath(flavors);
+    }
+
+}
 }
