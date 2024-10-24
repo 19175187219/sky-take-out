@@ -36,7 +36,7 @@ public class DishController {
     }
 
     /**
-     * 菜品分类查询
+     * 菜品分查询
      * @param dto
      * @return
      */
@@ -90,6 +90,38 @@ public class DishController {
     public Result updatea(@RequestBody DishDTO dishDTO) {
         log.info("修改菜品{}",dishDTO.toString());
         dishServer.updateFlavorsAndDishes(dishDTO);
+        return Result.success();
+    }
+    /**
+     *
+     *
+     * @param categoryId
+     * @return com.sky.result.Result<java.util.List < com.sky.entity.Dish>>
+     * @author zhuwanyi
+     * @create 2024/10/21
+     **/
+
+    @GetMapping("/list")
+    @ApiOperation("分类id查询菜品")
+    public Result<List<Dish>> listResult(Long categoryId){
+        log.info("xzcp{}","菜品");
+        List<Dish> list = dishServer.list(categoryId);
+        return Result.success(list);
+    }
+    /**
+     *
+     *
+     * @param status
+     * @param id
+     * @return com.sky.result.Result
+     * @author zhuwanyi
+     * @create 2024/10/21
+     **/
+
+    @ApiOperation("起售停售")
+    @PostMapping("/status/{status}")
+    public Result start(@PathVariable Integer status,Long id) {
+        dishServer.start(status,id);
         return Result.success();
     }
 }

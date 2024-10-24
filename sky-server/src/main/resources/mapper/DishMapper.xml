@@ -24,8 +24,17 @@
         SELECT d.*,c.`name` AS categoryName FROM dish d LEFT OUTER JOIN category c ON d.category_id=c.id
         <where>
             <if test="name!=null"> and d.name like concat('%',#{name},'%')</if>
-            <if test="categoryId!=null"> and d.categoryId like concat('%',#{categoryId},'%')</if>
+            <if test="categoryId!=null"> and d.category_id like concat('%',#{categoryId},'%')</if>
             <if test="status!=null"> and d.status like concat('%',#{status},'%')</if>
         </where>
+    </select>
+    <select id="list" resultType="com.sky.entity.Dish" parameterType="Dish">
+        select *from dish
+        <where>
+            <if test="name!=null"> and name like concat('%',#{name},'%')</if>
+            <if test="categoryId!=null"> and category_id like concat('%',#{categoryId},'%')</if>
+            <if test="status!=null"> and status like concat('%',#{status},'%')</if>
+        </where>
+        order by create_time desc
     </select>
 </mapper>

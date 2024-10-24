@@ -5,9 +5,14 @@ sky:
     port: 3306
     database: sky_take_out
     username: root
-    password: root
+    password: 123456
   alioss:
     endpoint: https://oss-cn-hangzhou.aliyuncs.com
     access-key-id: LTAI5tDCNppKdsdMcGN4BdEw
     access-key-secret: yAUL0Gloam8U6gzqToMNY1h4F2ayvZ
     bucket-name: zwyhmleadnews
+  redis:
+    host: localhost
+    port: 6379
+    password:
+    database: 2
