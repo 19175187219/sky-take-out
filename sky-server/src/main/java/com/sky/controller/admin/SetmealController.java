@@ -4,13 +4,14 @@ import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
-import com.sky.service.DishServer;
+import com.sky.service.DishService;
 import com.sky.service.SetmealService;
 import com.sky.vo.SetmealVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class SetmealController {
     @Autowired
     private SetmealService setmealService;
     @Autowired
-    private DishServer dishServer;
+    private DishService dishService;
     /**
      *
      *
@@ -51,6 +52,7 @@ public class SetmealController {
 
 @ApiOperation("新增套餐")
     @PostMapping
+@CacheEvict(cacheNames = "setmealCache",key = "#DTO.categoryId")
     public Result save(@RequestBody SetmealDTO DTO) {
         log.info("xzcp{}",DTO.toString());
         setmealService.save(DTO);
@@ -67,6 +69,7 @@ public class SetmealController {
 
     @DeleteMapping
     @ApiOperation("删除")
+    @CacheEvict(cacheNames = "setmealCache",allEntries = true)
     public Result delete(@RequestParam List<Long> ids){
         log.info("{}",ids.toString());
         setmealService.delete(ids);
@@ -84,7 +87,7 @@ public class SetmealController {
     @GetMapping("/{id}")
     @ApiOperation("id查询菜品")
     public Result<SetmealVO> update(@PathVariable Long id){
-        log.info("xzcp{}","菜品");
+        log.info("id{}","菜品");
         SetmealVO setmealVO= setmealService.getByIdwithDish(id);
         return Result.success(setmealVO);
     }
@@ -99,6 +102,7 @@ public class SetmealController {
 
 @ApiOperation("修改菜品")
     @PutMapping
+@CacheEvict(cacheNames = "setmealCache",allEntries = true)
     public Result updatea(@RequestBody SetmealDTO setmealDTO) {
         log.info("修改菜品{}",setmealDTO.toString());
         setmealService.updateFlavorsAndDishes(setmealDTO);
@@ -107,6 +111,7 @@ public class SetmealController {
 
     @ApiOperation("起售停售")
     @PostMapping("/status/{status}")
+    @CacheEvict(cacheNames = "setmealCache",allEntries = true)
     public Result start(@PathVariable Integer status,Long id) {
     setmealService.start(status,id);
     return Result.success();

@@ -8,7 +8,7 @@ import com.sky.vo.DishVO;
 
 import java.util.List;
 
-public interface DishServer {
+public interface DishService {
     public void saveFlavorsAndDishes(DishDTO dishDTO);
 
     PageResult pageResult(DishPageQueryDTO dto);
@@ -22,4 +22,6 @@ public interface DishServer {
     List<Dish> list(Long categoryId);
 
     void start(Integer status, Long id);
+    List<DishVO> listWithFlavor(Dish dish);
+
 }
