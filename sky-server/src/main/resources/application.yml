@@ -53,3 +53,7 @@ sky:
   wechat:
     appid: ${sky.wechat.appid}
     secret: ${sky.wechat.secret}
+  shop:
+    address: 广西壮族自治区桂林市临桂区桂林信息科技学院
+  baidu:
+    ak: ojABAgLAKI3fpyHgN7opO5Vyd1tdtY8F
