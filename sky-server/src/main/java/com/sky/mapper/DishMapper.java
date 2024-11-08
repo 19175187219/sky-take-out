@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface DishMapper {
@@ -46,4 +47,5 @@ public interface DishMapper {
     List<Dish> list(Dish dish);
 @Select("select  a.* from dish a left join setmeal_dish b on a.id=b.dish_id where setmeal_id=#{setmealId}")
     List<Dish> getBysetmealId(Long setmealId);
+    Integer countByMap(Map map);
 }
