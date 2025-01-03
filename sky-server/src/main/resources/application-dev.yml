@@ -7,17 +7,17 @@ sky:
     username: root
     password: 123456
   alioss:
-    endpoint: https://oss-cn-hangzhou.aliyuncs.com
-    access-key-id: LTAI5tDCNppKdsdMcGN4BdEw
-    access-key-secret: yAUL0Gloam8U6gzqToMNY1h4F2ayvZ
-    bucket-name: zwyhmleadnews
+    endpoint: 
+    access-key-id: 
+    access-key-secret: 
+    bucket-name: 
   redis:
     host: localhost
     port: 6379
     password:
     database: 2
   wechat:
-    appid: wxf204557111ae3008
-    secret: 201c1141d530107f209f84772145b226
-    notify-url: https://21e88914.r24.cpolar.top/notify/paySuccess
-    refund-notify-url: https://21e88914.r24.cpolar.top/notify/refundSuccess
+    appid: 
+    secret: 
+    notify-url: 
+    refund-notify-url: 
